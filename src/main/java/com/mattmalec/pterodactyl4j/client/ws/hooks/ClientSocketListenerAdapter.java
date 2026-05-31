@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -71,6 +71,8 @@ public abstract class ClientSocketListenerAdapter implements ClientSocketListene
 
 	public void onFailure(FailureEvent event) {}
 
+	public void onUrlRetrievalFailure(UrlRetrievalFailureEvent event) {}
+
 	public void onDaemonError(DaemonErrorEvent event) {}
 
 	public void onJWTError(JWTErrorEvent event) {}
@@ -101,6 +103,7 @@ public abstract class ClientSocketListenerAdapter implements ClientSocketListene
 		else if (event instanceof DisconnectingEvent) onDisconnecting((DisconnectingEvent) event);
 		else if (event instanceof DisconnectedEvent) onDisconnected((DisconnectedEvent) event);
 		else if (event instanceof FailureEvent) onFailure((FailureEvent) event);
+		else if (event instanceof UrlRetrievalFailureEvent) onUrlRetrievalFailure((UrlRetrievalFailureEvent) event);
 		else if (event instanceof DaemonErrorEvent) onDaemonError((DaemonErrorEvent) event);
 		else if (event instanceof JWTErrorEvent) onJWTError((JWTErrorEvent) event);
 		else if (event instanceof TokenExpiringEvent) onTokenExpiring((TokenExpiringEvent) event);

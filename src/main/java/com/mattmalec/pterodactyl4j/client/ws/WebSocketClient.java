@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import com.mattmalec.pterodactyl4j.client.ws.events.connection.ConnectedEvent;
 import com.mattmalec.pterodactyl4j.client.ws.events.connection.DisconnectedEvent;
 import com.mattmalec.pterodactyl4j.client.ws.events.connection.DisconnectingEvent;
 import com.mattmalec.pterodactyl4j.client.ws.events.connection.FailureEvent;
+import com.mattmalec.pterodactyl4j.client.ws.events.connection.UrlRetrievalFailureEvent;
 import com.mattmalec.pterodactyl4j.client.ws.handle.*;
 import com.mattmalec.pterodactyl4j.requests.PteroActionImpl;
 import com.mattmalec.pterodactyl4j.requests.Route;
@@ -83,12 +84,19 @@ public class WebSocketClient extends WebSocketListener implements Runnable {
 
 	public void connect() {
 		if (connected) throw new IllegalStateException("Client already connected");
-		String url = new PteroActionImpl<String>(
-						client.getP4J(),
-						Route.Client.GET_WEBSOCKET.compile(server.getIdentifier()),
-						(response, request) ->
-								response.getObject().getJSONObject("data").getString("socket"))
-				.execute();
+
+		String url;
+		try {
+			url = new PteroActionImpl<String>(
+							client.getP4J(),
+							Route.Client.GET_WEBSOCKET.compile(server.getIdentifier()),
+							(response, request) ->
+									response.getObject().getJSONObject("data").getString("socket"))
+					.execute();
+		} catch (Throwable t) {
+			manager.getEventManager().handle(new UrlRetrievalFailureEvent(client, server, manager, connected, t));
+			return;
+		}
 
 		Request req = new Request.Builder()
 				.url(url)
