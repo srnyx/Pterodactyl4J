@@ -17,6 +17,7 @@
 package com.mattmalec.pterodactyl4j.client.ws.hooks;
 
 import com.mattmalec.pterodactyl4j.client.ws.events.*;
+import com.mattmalec.pterodactyl4j.client.ws.events.backup.BackupCompletedEvent;
 import com.mattmalec.pterodactyl4j.client.ws.events.connection.*;
 import com.mattmalec.pterodactyl4j.client.ws.events.error.DaemonErrorEvent;
 import com.mattmalec.pterodactyl4j.client.ws.events.error.JWTErrorEvent;

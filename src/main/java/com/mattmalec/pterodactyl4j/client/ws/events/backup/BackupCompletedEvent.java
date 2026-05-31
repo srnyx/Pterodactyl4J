@@ -14,28 +14,23 @@
  *    limitations under the License.
  */
 
-package com.mattmalec.pterodactyl4j.client.ws.handle;
+package com.mattmalec.pterodactyl4j.client.ws.events.backup;
 
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
 import com.mattmalec.pterodactyl4j.client.entities.impl.PteroClientImpl;
 import com.mattmalec.pterodactyl4j.client.managers.WebSocketManager;
-import com.mattmalec.pterodactyl4j.client.ws.events.backup.BackupCompletedEvent;
-import com.mattmalec.pterodactyl4j.client.ws.events.backup.BackupCompletedJsonEvent;
+import com.mattmalec.pterodactyl4j.client.ws.events.Event;
 
-public class BackupCompletedHandler extends ClientSocketHandler {
+public class BackupCompletedEvent extends Event {
 
-	public BackupCompletedHandler(PteroClientImpl client, ClientServer server, WebSocketManager manager) {
-		super(client, server, manager);
+	private final String content;
+
+	public BackupCompletedEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, String content) {
+		super(api, server, manager);
+		this.content = content;
 	}
 
-	@Override
-	public void handleInternally(String content) {
-		BackupCompletedEvent event;
-		try {
-			event = new BackupCompletedJsonEvent(getClient(), getServer(), getManager(), content);
-		} catch (Exception ignored) {
-			event = new BackupCompletedEvent(getClient(), getServer(), getManager(), content);
-		}
-		getManager().getEventManager().handle(event);
+	public String getContent() {
+		return content;
 	}
 }
