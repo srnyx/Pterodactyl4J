@@ -1,10 +1,13 @@
-[version]: https://repo.srnyx.com/api/badge/latest/snapshots/com/mattmalec/Pterodactyl4J?color=006d82&name=Reposilite
-[repository]: https://repo.srnyx.com/#/snapshots/com/mattmalec/Pterodactyl4J
+[release]: https://repo.srnyx.com/api/badge/latest/releases/com/mattmalec/Pterodactyl4J?color=006d82&name=Reposilite
+[snapshot]: https://repo.srnyx.com/api/badge/latest/snapshots/com/mattmalec/Pterodactyl4J?color=006d82&name=Reposilite
+[release-repository]: https://repo.srnyx.com/#/releases/com/mattmalec/Pterodactyl4J
+[snapshot-repository]: https://repo.srnyx.com/#/releases/com/mattmalec/Pterodactyl4J
 [javadocs]: https://repo.srnyx.com/javadoc/snapshots/com/mattmalec/Pterodactyl4J/latest
 [download]: #download
 [discord-shield]: https://discord.com/api/guilds/674747332440358931/widget.png
 [discord-invite]: https://srnyx.com/discord
-[ ![version][] ][download]
+[ ![release][] ][download]
+[ ![snapshot][] ][download]
 [ ![discord-shield][] ][discord-invite]
 # Pterodactyl4J (srnyx's Edition)
 
@@ -210,7 +213,8 @@ to be handled when it is convenient for P4J.
 Queuing requests asynchronously is generally faster than a synchronous approach, which is why the former is preferred to the latter.
 
 ## Download
-Latest Version: [ ![version][] ][repository]
+Latest Release Version: [ ![release][] ][release-repository]
+Latest Snapshot Version: [ ![snapshot][] ][snapshot-repository]
 
 Be sure to replace the **VERSION** key below with the one of the versions shown above!
 
@@ -282,7 +286,7 @@ Alternatively, if you need help outside of P4J, you can join the [Pterodactyl Di
 ## Documentation
 The docs are **currently incomplete**, but will have everything you need to know in order to use the wrapper once they are finished.
 
-You can find them on [Repositolite][repository] or they can be accessed directly [here][javadocs].
+You can find them on [Repositolite][release-repository] or they can be accessed directly [here][javadocs].
 
 ## Contributing to Pterodactyl4J
 If you want to contribute to Pterodactyl4J, make sure to base your branch off the **develop** branch and create your PR into that **same** branch.
