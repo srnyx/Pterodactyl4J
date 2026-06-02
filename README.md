@@ -6,9 +6,9 @@
 [download]: #download
 [discord-shield]: https://discord.com/api/guilds/674747332440358931/widget.png
 [discord-invite]: https://srnyx.com/discord
-[ ![release][] ][download]
-[ ![snapshot][] ][download]
-[ ![discord-shield][] ][discord-invite]
+[![release][]][download]
+[![snapshot][]][download]
+[![discord-shield][]][discord-invite]
 # Pterodactyl4J (srnyx's Edition)
 
 P4J strives to provide a clean and full wrapping of the Pterodactyl REST API for Java.
@@ -213,8 +213,8 @@ to be handled when it is convenient for P4J.
 Queuing requests asynchronously is generally faster than a synchronous approach, which is why the former is preferred to the latter.
 
 ## Download
-Latest Release Version: [ ![release][] ][release-repository]
-Latest Snapshot Version: [ ![snapshot][] ][snapshot-repository]
+Latest Release Version: [![release][]][release-repository]<br>
+Latest Snapshot Version: [![snapshot][]][snapshot-repository]
 
 Be sure to replace the **VERSION** key below with the one of the versions shown above!
 
