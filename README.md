@@ -1,5 +1,5 @@
-[release]: https://repo.srnyx.com/api/badge/latest/releases/com/mattmalec/Pterodactyl4J?color=006d82&name=Reposilite
-[snapshot]: https://repo.srnyx.com/api/badge/latest/snapshots/com/mattmalec/Pterodactyl4J?color=006d82&name=Reposilite
+[release]: https://repo.srnyx.com/api/badge/latest/releases/com/mattmalec/Pterodactyl4J?color=006d82&name=Release
+[snapshot]: https://repo.srnyx.com/api/badge/latest/snapshots/com/mattmalec/Pterodactyl4J?color=006d82&name=Snapshot
 [release-repository]: https://repo.srnyx.com/#/releases/com/mattmalec/Pterodactyl4J
 [snapshot-repository]: https://repo.srnyx.com/#/releases/com/mattmalec/Pterodactyl4J
 [javadocs]: https://repo.srnyx.com/javadoc/snapshots/com/mattmalec/Pterodactyl4J/latest
