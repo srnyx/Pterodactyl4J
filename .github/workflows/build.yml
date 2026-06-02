@@ -1,0 +1,21 @@
+name: Maven Publish (Snapshots)
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'gradle/**'
+      - 'src/**'
+      - 'build.gradle'
+      - 'settings.gradle'
+      - 'gradlew'
+      - 'gradlew.bat'
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: srnyx/tools/.github/workflows/maven_publish.yml@main
+    with:
+      name: Pterodactyl4J
+      channel: snapshots
+    secrets: inherit

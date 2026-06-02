@@ -4,11 +4,15 @@ plugins {
 	id 'signing'
 	id 'java-library'
 	id 'maven-publish'
-	id 'com.github.johnrengelman.shadow' version '7.1.2'
-	id 'com.diffplug.spotless' version '6.11.0'
+	id 'com.gradleup.shadow' version "9.4.2"
+	id 'com.diffplug.spotless' version '8.6.0'
 }
 
-sourceCompatibility = targetCompatibility = 1.8
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(8)
+	}
+}
 
 def versionObject = new Version(major: 2, minor: "BETA")
 version "$versionObject"
@@ -29,21 +33,12 @@ javadoc {
 	options {
 		memberLevel = JavadocMemberLevel.PUBLIC
 		encoding = "UTF-8"
+		addStringOption('Xdoclint:none', '-quiet')
 	}
 	if (options instanceof StandardJavadocDocletOptions) {
 		StandardJavadocDocletOptions opt = options
 		opt.author()
 		opt.tags("incubating:a:Incubating:")
-		opt.links(
-				"https://docs.oracle.com/javase/8/docs/api/",
-				"https://javadoc.io/doc/com.squareup.okhttp3/okhttp/3.13.0/")
-		if (JavaVersion.current().isJava9Compatible()) {
-			opt.addBooleanOption("html5", true)
-			opt.addStringOption("-release", "8")
-		}
-		if (JavaVersion.current().isJava11Compatible()) {
-			opt.addBooleanOption("-no-module-directories", true)
-		}
 	}
 
 	exclude("com/mattmalec/pterodactyl4j/utils/Checks.java",
@@ -73,11 +68,11 @@ task sourcesForRelease(type: Copy) {
 	includeEmptyDirs = false
 }
 
-task generateJavaSources(type: SourceTask) {
-	def javaSources = sourceSets.main.java.filter {
+compileJava {
+	source = sourceSets.main.java.filter {
 		it.name != 'P4JInfo.java'
-	}
-	source = javaSources + sourcesForRelease.destinationDir
+	} + files(sourcesForRelease)
+
 	dependsOn sourcesForRelease
 }
 
@@ -88,17 +83,16 @@ task sourcesJar(type: Jar) {
 	from ('src/main/java') {
 		exclude '**/P4JInfo.java'
 	}
-	from sourcesForRelease.destinationDir
+	from(tasks.sourcesForRelease)
 	dependsOn sourcesForRelease
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
 	archiveClassifier.set('javadoc')
-	from javadoc.destinationDir
+	from(tasks.javadoc)
 }
 
 build {
-	dependsOn jar
 	dependsOn javadocJar
 	dependsOn sourcesJar
 	dependsOn shadowJar
@@ -107,10 +101,7 @@ build {
 	shadowJar.mustRunAfter sourcesJar
 }
 
-compileJava {
-	source = generateJavaSources.source
-	dependsOn generateJavaSources
-}
+sourceSets.main.java.srcDir(sourcesForRelease.destinationDir)
 
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
@@ -122,7 +113,7 @@ spotless {
 	format 'misc', {
 		target '*.gradle', '.gitignore'
 		trimTrailingWhitespace()
-		indentWithTabs()
+		leadingSpacesToTabs()
 		endWithNewline()
 	}
 	java {
@@ -132,7 +123,7 @@ spotless {
 
 		formatAnnotations()
 		palantirJavaFormat()
-		indentWithTabs()
+		leadingSpacesToTabs()
 		endWithNewline()
 
 		licenseHeader '/*\n' +
@@ -163,6 +154,9 @@ class Version {
 	}
 }
 
+String mavenUrl = System.getenv("MAVEN_URL")
+String mavenName = System.getenv("MAVEN_NAME")
+String mavenSecret = System.getenv("MAVEN_SECRET")
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
@@ -179,7 +173,7 @@ publishing {
 			pom {
 				name = project.name
 				description = 'Java wrapper for the API of Pterodactyl'
-				url = 'https://github.com/mattmalec/Pterodactyl4J'
+				url = 'https://github.com/srnyx/Pterodactyl4J'
 				licenses {
 					license {
 						name = 'The Apache Software License, Version 2.0'
@@ -192,22 +186,28 @@ publishing {
 						name = 'Matt Malec'
 						email = 'matt@mattmalec.com'
 					}
+					developer {
+						id = 'srnyx'
+						name = 'srnyx'
+						email = 'contact@srnyx.com'
+					}
 				}
 				scm {
-					connection = 'scm:git:https://github.com/mattmalec/Pterodactyl4J'
-					developerConnection = 'scm:git:ssh://github.com/mattmalec/Pterodactyl4J'
-					url = 'https://github.com/mattmalec/Pterodactyl4J'
+					connection = 'scm:git:https://github.com/srnyx/Pterodactyl4J'
+					developerConnection = 'scm:git:ssh://github.com/srnyx/Pterodactyl4J'
+					url = 'https://github.com/srnyx/Pterodactyl4J'
 				}
 			}
+		}
+	}
 
-			repositories {
-				maven {
-					name 'Jenkins'
-					url  'https://repo.mattmalec.com/repository/releases'
-					credentials {
-						username = System.getenv('jenkinsUsername')
-						password = System.getenv('jenkinsPassword')
-					}
+	if (mavenUrl && mavenName && mavenSecret) {
+		repositories {
+			maven {
+				url = uri(mavenUrl)
+				credentials {
+					username = mavenName
+					password = mavenSecret
 				}
 			}
 		}

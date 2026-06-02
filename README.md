@@ -16,10 +16,14 @@ P4J strives to provide a clean and full wrapping of the Pterodactyl REST API for
 <br />P4J fully wraps the application and the client API for the Pterodactyl panel.
 <br />**NOTE**: This is an unofficial wrapper. Do not expect the Pterodactyl community to provide support for this wrapper.
 
-> :warning: **My Discord account was unexpectedly disabled.** While I work to regain access,
-> you can find me on Telegram [here](https://t.me/Pterodactyl4J). 
-> <br /><br />Please make sure you are verifying that commits from my [GitHub user](https://github.com/mattmalec)
-> are signed using my GPG key.
+### srnyx's Changes
+
+- Add `UrlRetrievalFailureEvent` for client websocket
+- Add `getField(String)` to server objects
+  - To get custom fields
+- Add `BackupCompletedJsonEvent`
+  - BackupCompletedEvent now just stores content as String for when event does not send a JSON.
+  - If a valid JSON WAS sent, BackupCompletedEvent can be cast to BackupCompletedJsonEvent to access JSON methods/fields.
 
 ## Creating the PteroApplication/PteroClient Object
 
