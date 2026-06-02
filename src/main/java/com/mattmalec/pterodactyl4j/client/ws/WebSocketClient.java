@@ -19,18 +19,13 @@ package com.mattmalec.pterodactyl4j.client.ws;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
 import com.mattmalec.pterodactyl4j.client.entities.impl.PteroClientImpl;
 import com.mattmalec.pterodactyl4j.client.managers.WebSocketManager;
-import com.mattmalec.pterodactyl4j.client.ws.events.connection.ConnectedEvent;
-import com.mattmalec.pterodactyl4j.client.ws.events.connection.DisconnectedEvent;
-import com.mattmalec.pterodactyl4j.client.ws.events.connection.DisconnectingEvent;
-import com.mattmalec.pterodactyl4j.client.ws.events.connection.FailureEvent;
-import com.mattmalec.pterodactyl4j.client.ws.events.connection.UrlRetrievalFailureEvent;
+import com.mattmalec.pterodactyl4j.client.ws.events.connection.*;
 import com.mattmalec.pterodactyl4j.client.ws.handle.*;
 import com.mattmalec.pterodactyl4j.requests.PteroActionImpl;
 import com.mattmalec.pterodactyl4j.requests.Route;
 import com.mattmalec.pterodactyl4j.utils.P4JLogger;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
@@ -110,7 +105,7 @@ public class WebSocketClient extends WebSocketListener implements Runnable {
 	public void shutdown() {
 		if (!connected) throw new IllegalStateException("Client isn't connected to server websocket");
 
-		WEBSOCKET_LOG.info(String.format("Shutting down websocket for server %s", server.getIdentifier()));
+		WEBSOCKET_LOG.debug(String.format("Shutting down websocket for server %s", server.getIdentifier()));
 
 		webSocket.close(1000, "Client shutting down");
 	}
@@ -126,12 +121,26 @@ public class WebSocketClient extends WebSocketListener implements Runnable {
 
 	public void sendAuthenticate(String token) {
 		if (!connected) throw new IllegalStateException("Client isn't connected to server websocket");
-		String t = Optional.ofNullable(token).orElseGet(() -> new PteroActionImpl<String>(
-						client.getP4J(),
-						Route.Client.GET_WEBSOCKET.compile(server.getIdentifier()),
-						(response, request) ->
-								response.getObject().getJSONObject("data").getString("token"))
-				.execute());
+		String t = token;
+		if (t == null)
+			try {
+				t = new PteroActionImpl<String>(
+								client.getP4J(),
+								Route.Client.GET_WEBSOCKET.compile(server.getIdentifier()),
+								(response, request) -> response.getObject()
+										.getJSONObject("data")
+										.getString("token"))
+						.execute();
+			} catch (Throwable throwable) {
+				// Handle event
+				manager.getEventManager()
+						.handle(new TokenRetrievalFailureEvent(client, server, manager, connected, throwable));
+
+				// Close socket
+				connected = false;
+				webSocket.close(1000, "Token retrieval failed");
+				return;
+			}
 		send(WebSocketAction.create(WebSocketAction.AUTH, t));
 	}
 
@@ -173,7 +182,7 @@ public class WebSocketClient extends WebSocketListener implements Runnable {
 	public void onOpen(@NotNull WebSocket webSocket, @NotNull Response response) {
 		connected = true;
 		this.webSocket = webSocket;
-		WEBSOCKET_LOG.info("Connected to websocket for server {}", server.getIdentifier());
+		WEBSOCKET_LOG.debug("Connected to websocket for server {}", server.getIdentifier());
 		manager.getEventManager().handle(new ConnectedEvent(client, server, manager, connected));
 		sendAuthenticate();
 	}

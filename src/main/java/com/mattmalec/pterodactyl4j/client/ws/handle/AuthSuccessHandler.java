@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public class AuthSuccessHandler extends ClientSocketHandler {
 	@Override
 	public void handleInternally(String content) {
 		getManager().getEventManager().handle(new AuthSuccessEvent(getClient(), getServer(), getManager()));
-		WebSocketClient.WEBSOCKET_LOG.info(
+		WebSocketClient.WEBSOCKET_LOG.debug(
 				String.format("Authorized websocket for server %s", getServer().getIdentifier()));
 	}
 }

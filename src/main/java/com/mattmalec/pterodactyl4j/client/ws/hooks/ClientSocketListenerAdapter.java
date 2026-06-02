@@ -72,6 +72,8 @@ public abstract class ClientSocketListenerAdapter implements ClientSocketListene
 
 	public void onFailure(FailureEvent event) {}
 
+	public void onTokenRetrievalFailure(TokenRetrievalFailureEvent event) {}
+
 	public void onUrlRetrievalFailure(UrlRetrievalFailureEvent event) {}
 
 	public void onDaemonError(DaemonErrorEvent event) {}
@@ -104,6 +106,8 @@ public abstract class ClientSocketListenerAdapter implements ClientSocketListene
 		else if (event instanceof DisconnectingEvent) onDisconnecting((DisconnectingEvent) event);
 		else if (event instanceof DisconnectedEvent) onDisconnected((DisconnectedEvent) event);
 		else if (event instanceof FailureEvent) onFailure((FailureEvent) event);
+		else if (event instanceof TokenRetrievalFailureEvent)
+			onTokenRetrievalFailure((TokenRetrievalFailureEvent) event);
 		else if (event instanceof UrlRetrievalFailureEvent) onUrlRetrievalFailure((UrlRetrievalFailureEvent) event);
 		else if (event instanceof DaemonErrorEvent) onDaemonError((DaemonErrorEvent) event);
 		else if (event instanceof JWTErrorEvent) onJWTError((JWTErrorEvent) event);
