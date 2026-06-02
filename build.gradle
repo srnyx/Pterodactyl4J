@@ -14,7 +14,7 @@ java {
 	}
 }
 
-def versionObject = new Version(major: 2, minor: "BETA")
+def versionObject = new Version(major: 3, minor: 0, patch: 0)
 version "$versionObject"
 
 repositories {
@@ -61,7 +61,7 @@ task sourcesForRelease(type: Copy) {
 		filter(ReplaceTokens, tokens: [
 				MAJOR: versionObject.major,
 				MINOR: versionObject.minor,
-				BUILD: versionObject.build
+				PATCH: versionObject.patch
 		])
 	}
 	into 'build/filteredSrc'
@@ -146,11 +146,10 @@ spotless {
 }
 
 class Version {
-	String major, minor
-	def build = System.getenv('BUILD_NUMBER') ?: 'DEV'
+	String major, minor, patch
 
 	String toString() {
-		return "$major.${minor}_$build"
+		return "$major.${minor}.${patch}"
 	}
 }
 
