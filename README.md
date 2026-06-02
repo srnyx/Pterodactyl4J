@@ -1,16 +1,12 @@
-[version]: https://shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo.mattmalec.com%2Frepository%2Freleases%2Fcom%2Fmattmalec%2FPterodactyl4J%2Fmaven-metadata.xml&color=informational&label=Download
-[jenkins]: https://ci.mattmalec.com/job/Pterodactyl4J
-[build]: https://ci.mattmalec.com/job/Pterodactyl4J/badge/icon
-[javadocs]: https://ci.mattmalec.com/job/Pterodactyl4J/javadoc
+[version]: https://repo.srnyx.com/api/badge/latest/snapshots/com/mattmalec/Pterodactyl4J?color=006d82&name=Reposilite
+[repository]: https://repo.srnyx.com/#/snapshots/com/mattmalec/Pterodactyl4J
+[javadocs]: https://repo.srnyx.com/javadoc/snapshots/com/mattmalec/Pterodactyl4J/latest
 [download]: #download
-[jenkins-shield]: https://img.shields.io/badge/Download-Jenkins-orange.svg
-[discord-shield]: https://discord.com/api/guilds/780230961035608064/widget.png
-[discord-invite]: https://discord.gg/7fAabrTJZW
+[discord-shield]: https://discord.com/api/guilds/674747332440358931/widget.png
+[discord-invite]: https://srnyx.com/discord
 [ ![version][] ][download]
-[ ![jenkins-shield][] ][jenkins]
-[ ![build][] ][jenkins]
 [ ![discord-shield][] ][discord-invite]
-# Pterodactyl4J
+# Pterodactyl4J (srnyx's Edition)
 
 P4J strives to provide a clean and full wrapping of the Pterodactyl REST API for Java.
 <br />P4J fully wraps the application and the client API for the Pterodactyl panel.
@@ -188,7 +184,7 @@ The interface also supports several operators to improve quality of life:
 **Example**:
 ```java
 public void startServer(String identifier) {
-    System.out.println("Starting server in 5 seconds...")
+    System.out.println("Starting server in 5 seconds...");
     client.retrieveServerByIdentifier(identifier) // retrieve the client server
         .delay(5, TimeUnit.SECONDS) // wait 5 seconds
         .flatMap(ClientServer::start) // start the server
@@ -214,7 +210,7 @@ to be handled when it is convenient for P4J.
 Queuing requests asynchronously is generally faster than a synchronous approach, which is why the former is preferred to the latter.
 
 ## Download
-Latest Version: [ ![version][] ][jenkins]
+Latest Version: [ ![version][] ][repository]
 
 Be sure to replace the **VERSION** key below with the one of the versions shown above!
 
@@ -227,11 +223,16 @@ Be sure to replace the **VERSION** key below with the one of the versions shown 
 </dependency>
 ```
 ```xml
+<!-- For releases -->
 <repository>
-    <id>mattmalec-repo</id>
-    <url>https://repo.mattmalec.com/repository/releases</url>
+    <id>srnyx-releases</id>
+    <url>https://repo.srnyx.com/releases</url>
 </repository>
-
+<!-- For snapshots -->
+<repository>
+    <id>srnyx-snapshots</id>
+    <url>https://repo.srnyx.com/snapshots</url>
+</repository>
 ```
 
 **Gradle**
@@ -241,8 +242,13 @@ dependencies {
 }
 
 repositories {
+    // For releases
     maven {
-      url = 'https://repo.mattmalec.com/repository/releases'
+        url "https://repo.srnyx.com/releases"
+    }
+    // For snapshots
+    maven {
+        url "https://repo.srnyx.com/snapshots"
     }
 }
 ```
@@ -269,14 +275,14 @@ The most popular implementations are [Log4j 2](https://logging.apache.org/log4j/
 ## Getting Help
 
 For general troubleshooting, you can view some troubleshooting steps in the examples (this will be soon moved to the wiki).
-<br>If you need help, or just want to talk with myself and other developers, you can join the [Pterodactyl4J Discord server][discord-invite].
+<br>If you need help, or just want to talk with myself and other developers, you can join [srnyx's Discord server][discord-invite].
 
 Alternatively, if you need help outside of P4J, you can join the [Pterodactyl Discord server](https://discord.gg/pterodactyl).
 
 ## Documentation
 The docs are **currently incomplete**, but will have everything you need to know in order to use the wrapper once they are finished.
 
-You can find them on [Jenkins][jenkins] or they can be accessed directly [here][javadocs].
+You can find them on [Repositolite][repository] or they can be accessed directly [here][javadocs].
 
 ## Contributing to Pterodactyl4J
 If you want to contribute to Pterodactyl4J, make sure to base your branch off the **develop** branch and create your PR into that **same** branch.
@@ -284,7 +290,7 @@ If you want to contribute to Pterodactyl4J, make sure to base your branch off th
 It is recommended to get in touch with myself before opening Pull Requests (either through an issue or on Discord).<br>
 
 ## Dependencies
-This project requires **Java 8**.<br>
+This project requires **Java 8** runtime and modern (21+?) Java compiler to build.<br>
 All dependencies are managed automatically by Gradle.
 
  * OkHttp

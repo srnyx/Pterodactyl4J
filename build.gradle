@@ -154,6 +154,11 @@ class Version {
 	}
 }
 
+// Handle VERSION environment variable
+String mavenVersion = System.getenv('VERSION')
+if (mavenVersion != null) version = mavenVersion
+
+// Setup publishing
 String mavenUrl = System.getenv("MAVEN_URL")
 String mavenName = System.getenv("MAVEN_NAME")
 String mavenSecret = System.getenv("MAVEN_SECRET")
