@@ -117,7 +117,8 @@ public class ClientServerImpl implements ClientServer {
 
 	@Override
 	public String getNode() {
-		return json.getString("node");
+		final Object node = json.get("node");
+		return node instanceof String ? (String) node : null;
 	}
 
 	@Override
