@@ -21,11 +21,5 @@ package com.mattmalec.pterodactyl4j;
  */
 public class P4JInfo {
 
-	public static final String VERSION_MAJOR = "@MAJOR@";
-	public static final String VERSION_MINOR = "@MINOR@";
-	public static final String VERSION_PATCH = "@PATCH@";
-
-	public static final String VERSION = VERSION_MAJOR.startsWith("@")
-			? "DEV"
-			: String.format("%s.%s_%s", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+	public static final String VERSION = "@VERSION@";
 }

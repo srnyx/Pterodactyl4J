@@ -14,9 +14,6 @@ java {
 	}
 }
 
-def versionObject = new Version(major: 3, minor: 0, patch: 0)
-version "$versionObject"
-
 repositories {
 	mavenCentral()
 }
@@ -58,11 +55,7 @@ javadoc {
 task sourcesForRelease(type: Copy) {
 	from('src/main/java') {
 		include '**/P4JInfo.java'
-		filter(ReplaceTokens, tokens: [
-				MAJOR: versionObject.major,
-				MINOR: versionObject.minor,
-				PATCH: versionObject.patch
-		])
+		filter(ReplaceTokens, tokens: [VERSION: version])
 	}
 	into 'build/filteredSrc'
 	includeEmptyDirs = false
