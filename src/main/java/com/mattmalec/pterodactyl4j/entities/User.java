@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -21,6 +21,15 @@ package com.mattmalec.pterodactyl4j.entities;
  * This should contain all information provided from the Pterodactyl instance about a User.
  */
 public interface User {
+
+	/**
+	 * Gets a field from the user's JSON object.
+	 *
+	 * @param key The key to get the value of.
+	 *
+	 * @return Possibly-null value of the field.
+	 */
+	Object getField(String key);
 
 	/**
 	 * The username of the User
