@@ -14,6 +14,11 @@ java {
 	}
 }
 
+version = (System.getenv("GITHUB_REF_TYPE") == "tag"
+		? System.getenv("GITHUB_REF_NAME") : null)
+		?: (System.getenv("GITHUB_SHA")?.trim()?.take(7)
+		?: "dev")
+
 repositories {
 	mavenCentral()
 }
