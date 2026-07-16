@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2023 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.mattmalec.pterodactyl4j.PteroAction;
 import com.mattmalec.pterodactyl4j.client.entities.ClientAllocation;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
 import com.mattmalec.pterodactyl4j.client.managers.ClientAllocationManager;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ClientAllocationImpl implements ClientAllocation {
@@ -30,6 +31,15 @@ public class ClientAllocationImpl implements ClientAllocation {
 	public ClientAllocationImpl(JSONObject json, ClientServer server) {
 		this.json = json.getJSONObject("attributes");
 		this.allocationManager = server.getAllocationManager();
+	}
+
+	@Override
+	public Object getField(String key) {
+		try {
+			return json.get(key);
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 
 	@Override

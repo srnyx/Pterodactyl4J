@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package com.mattmalec.pterodactyl4j.entities.impl;
 
 import com.mattmalec.pterodactyl4j.entities.FeatureLimit;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FeatureLimitImpl implements FeatureLimit {
@@ -25,6 +26,15 @@ public class FeatureLimitImpl implements FeatureLimit {
 
 	public FeatureLimitImpl(JSONObject json) {
 		this.json = json;
+	}
+
+	@Override
+	public Object getField(String key) {
+		try {
+			return json.get(key);
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 
 	@Override

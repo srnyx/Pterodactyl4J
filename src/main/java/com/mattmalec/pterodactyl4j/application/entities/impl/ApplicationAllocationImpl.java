@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2023 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.mattmalec.pterodactyl4j.application.entities.ApplicationAllocation;
 import com.mattmalec.pterodactyl4j.application.entities.ApplicationServer;
 import com.mattmalec.pterodactyl4j.application.entities.Node;
 import java.util.Optional;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ApplicationAllocationImpl implements ApplicationAllocation {
@@ -33,6 +34,15 @@ public class ApplicationAllocationImpl implements ApplicationAllocation {
 		this.json = json.getJSONObject("attributes");
 		this.relationships = json.getJSONObject("attributes").optJSONObject("relationships");
 		this.impl = impl;
+	}
+
+	@Override
+	public Object getField(String key) {
+		try {
+			return json.get(key);
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 
 	@Override

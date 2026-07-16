@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ContainerImpl implements Container {
@@ -30,6 +31,15 @@ public class ContainerImpl implements Container {
 
 	public ContainerImpl(JSONObject json) {
 		this.json = json;
+	}
+
+	@Override
+	public Object getField(String key) {
+		try {
+			return json.get(key);
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 
 	@Override

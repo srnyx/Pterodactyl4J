@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import com.mattmalec.pterodactyl4j.client.entities.ClientAllocation;
  * Represents a Pterodactyl {@link com.mattmalec.pterodactyl4j.entities.Allocation Allocation}.
  * This should contain all information provided from the Pterodactyl instance about an Allocation.
  */
-public interface Allocation {
+public interface Allocation extends JsonEntity {
 
 	/**
 	 * The IP address of this Allocation

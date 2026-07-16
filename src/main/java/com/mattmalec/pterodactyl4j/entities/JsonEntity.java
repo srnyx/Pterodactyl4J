@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,23 +16,19 @@
 
 package com.mattmalec.pterodactyl4j.entities;
 
+import org.json.JSONObject;
+
 /**
- * Represents a Pterodactyl {@link com.mattmalec.pterodactyl4j.entities.User User}.
- * This should contain all information provided from the Pterodactyl instance about a User.
+ * Represents an entity backed by a {@link JSONObject}.
  */
-public interface User extends JsonEntity {
+public interface JsonEntity {
 
 	/**
-	 * The username of the User
+	 * Gets a field from the entity's JSON object.
 	 *
-	 * @return Never-null String containing the User's username.
-	 */
-	String getUserName();
-
-	/**
-	 * The email of the User
+	 * @param key The key to get the value of.
 	 *
-	 * @return Never-null String containing the User's email.
+	 * @return Possibly-null value of the field.
 	 */
-	String getEmail();
+	Object getField(String key);
 }

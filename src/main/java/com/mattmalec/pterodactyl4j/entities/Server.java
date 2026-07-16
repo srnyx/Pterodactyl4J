@@ -22,16 +22,7 @@ import java.util.UUID;
  * Represents a Pterodactyl {@link com.mattmalec.pterodactyl4j.entities.Server Server}.
  * This should contain all information provided from the Pterodactyl instance about a Server.
  */
-public interface Server {
-
-	/**
-	 * Gets a field from the server's JSON object.
-	 *
-	 * @param key The key to get the value of.
-	 *
-	 * @return Possibly-null value of the field.
-	 */
-	Object getField(String key);
+public interface Server extends JsonEntity {
 
 	/**
 	 * The UUID of the Server.

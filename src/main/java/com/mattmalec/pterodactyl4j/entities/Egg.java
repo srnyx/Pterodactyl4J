@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import java.util.UUID;
  * Represents a Pterodactyl {@link com.mattmalec.pterodactyl4j.entities.Egg Egg}.
  * This should contain all information provided from the Pterodactyl instance about an Egg.
  */
-public interface Egg {
+public interface Egg extends JsonEntity {
 
 	/**
 	 * The human readable name of the Egg.

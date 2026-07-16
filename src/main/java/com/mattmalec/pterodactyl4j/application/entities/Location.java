@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -18,13 +18,14 @@ package com.mattmalec.pterodactyl4j.application.entities;
 
 import com.mattmalec.pterodactyl4j.PteroAction;
 import com.mattmalec.pterodactyl4j.application.managers.LocationAction;
+import com.mattmalec.pterodactyl4j.entities.JsonEntity;
 import java.util.List;
 
 /**
  * Represents a Pterodactyl {@link com.mattmalec.pterodactyl4j.application.entities.Location Location}.
  * This should contain all information provided from the Pterodactyl instance about a Location.
  */
-public interface Location extends ISnowflake {
+public interface Location extends ISnowflake, JsonEntity {
 
 	String getShortCode();
 

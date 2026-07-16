@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -19,12 +19,13 @@ package com.mattmalec.pterodactyl4j.application.entities;
 import com.mattmalec.pterodactyl4j.PteroAction;
 import com.mattmalec.pterodactyl4j.application.managers.ApplicationAllocationManager;
 import com.mattmalec.pterodactyl4j.application.managers.NodeAction;
+import com.mattmalec.pterodactyl4j.entities.JsonEntity;
 import com.mattmalec.pterodactyl4j.requests.PaginationAction;
 import com.mattmalec.pterodactyl4j.utils.StreamUtils;
 import java.util.List;
 import java.util.UUID;
 
-public interface Node extends ISnowflake {
+public interface Node extends ISnowflake, JsonEntity {
 
 	boolean isPublic();
 
