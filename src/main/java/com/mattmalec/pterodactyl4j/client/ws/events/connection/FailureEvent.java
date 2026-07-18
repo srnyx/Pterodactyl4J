@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -72,5 +72,13 @@ public class FailureEvent extends ConnectionEvent {
 	 */
 	public JSONObject getResponse() throws IOException {
 		return new JSONObject(response.body().string());
+	}
+
+	@Override
+	public String toString() {
+		return "FailureEvent{" + "super="
+				+ super.toString() + ", response="
+				+ response + ", throwable="
+				+ throwable + '}';
 	}
 }

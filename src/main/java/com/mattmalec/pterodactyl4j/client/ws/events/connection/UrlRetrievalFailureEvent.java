@@ -48,4 +48,9 @@ public class UrlRetrievalFailureEvent extends ConnectionEvent {
 	public Throwable getThrowable() {
 		return throwable;
 	}
+
+	@Override
+	public String toString() {
+		return "UrlRetrievalFailureEvent{" + "throwable=" + throwable + '}';
+	}
 }

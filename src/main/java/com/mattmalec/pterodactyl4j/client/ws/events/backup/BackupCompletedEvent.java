@@ -33,4 +33,9 @@ public class BackupCompletedEvent extends Event {
 	public String getContent() {
 		return content;
 	}
+
+	@Override
+	public String toString() {
+		return "BackupCompletedEvent{" + "content='" + content + '\'' + '}';
+	}
 }

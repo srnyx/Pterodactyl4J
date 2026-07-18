@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,5 +25,10 @@ public class DisconnectedEvent extends DisconnectionEvent {
 	public DisconnectedEvent(
 			PteroClientImpl api, ClientServer server, WebSocketManager manager, boolean connected, int closeCode) {
 		super(api, server, manager, connected, closeCode);
+	}
+
+	@Override
+	public String toString() {
+		return "DisconnectedEvent{" + "super=" + super.toString() + '}';
 	}
 }

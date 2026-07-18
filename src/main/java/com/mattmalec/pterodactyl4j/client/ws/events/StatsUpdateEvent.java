@@ -109,4 +109,9 @@ public class StatsUpdateEvent extends Event implements JsonEntity {
 		long hour = (uptime / (1000 * 60 * 60)) % 24;
 		return String.format("%02d:%02d:%02d", hour, minute, second);
 	}
+
+	@Override
+	public String toString() {
+		return "StatsUpdateEvent{" + "stats=" + stats + '}';
+	}
 }

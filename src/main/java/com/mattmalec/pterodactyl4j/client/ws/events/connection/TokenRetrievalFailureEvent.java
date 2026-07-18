@@ -48,4 +48,9 @@ public class TokenRetrievalFailureEvent extends ConnectionEvent {
 	public Throwable getThrowable() {
 		return throwable;
 	}
+
+	@Override
+	public String toString() {
+		return "TokenRetrievalFailureEvent{" + "throwable=" + throwable + '}';
+	}
 }

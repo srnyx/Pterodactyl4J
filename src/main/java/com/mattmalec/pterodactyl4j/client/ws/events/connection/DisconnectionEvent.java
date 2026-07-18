@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -32,5 +32,10 @@ public abstract class DisconnectionEvent extends ConnectionEvent {
 
 	public int getCloseCode() {
 		return closeCode;
+	}
+
+	@Override
+	public String toString() {
+		return "DisconnectionEvent{" + "super=" + super.toString() + ", closeCode=" + closeCode + '}';
 	}
 }

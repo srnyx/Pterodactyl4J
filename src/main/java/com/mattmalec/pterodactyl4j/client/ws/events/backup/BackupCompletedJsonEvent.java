@@ -67,4 +67,9 @@ public class BackupCompletedJsonEvent extends BackupCompletedEvent implements Js
 	public String getSizeFormatted(DataType dataType) {
 		return String.format("%.2f %s", getSize() / (dataType.getMbValue() * Math.pow(2, 20)), dataType.name());
 	}
+
+	@Override
+	public String toString() {
+		return "BackupCompletedJsonEvent{" + "super=" + super.toString() + ", json=" + json + '}';
+	}
 }

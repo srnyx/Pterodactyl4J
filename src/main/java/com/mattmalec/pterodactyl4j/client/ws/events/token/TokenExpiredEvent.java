@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -29,5 +29,10 @@ public class TokenExpiredEvent extends TokenEvent {
 	@Override
 	public boolean isExpired() {
 		return super.isExpired();
+	}
+
+	@Override
+	public String toString() {
+		return "TokenExpiredEvent{" + "super=" + super.toString() + '}';
 	}
 }
