@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -21,15 +21,31 @@ import com.mattmalec.pterodactyl4j.UtilizationState;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
 import com.mattmalec.pterodactyl4j.client.entities.impl.PteroClientImpl;
 import com.mattmalec.pterodactyl4j.client.managers.WebSocketManager;
+import com.mattmalec.pterodactyl4j.entities.JsonEntity;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-public class StatsUpdateEvent extends Event {
+public class StatsUpdateEvent extends Event implements JsonEntity {
 
 	private final JSONObject stats;
 
 	public StatsUpdateEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, JSONObject stats) {
 		super(api, server, manager);
 		this.stats = stats;
+	}
+
+	@Override
+	public JSONObject getJson() {
+		return stats;
+	}
+
+	@Override
+	public Object getField(String key) {
+		try {
+			return stats.get(key);
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 
 	public UtilizationState getState() {

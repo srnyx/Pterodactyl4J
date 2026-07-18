@@ -47,6 +47,11 @@ public class ClientServerImpl implements ClientServer {
 	}
 
 	@Override
+	public JSONObject getJson() {
+		return json;
+	}
+
+	@Override
 	public Object getField(String key) {
 		try {
 			return json.get(key);

@@ -20,9 +20,11 @@ import com.mattmalec.pterodactyl4j.DataType;
 import com.mattmalec.pterodactyl4j.client.entities.ClientServer;
 import com.mattmalec.pterodactyl4j.client.entities.impl.PteroClientImpl;
 import com.mattmalec.pterodactyl4j.client.managers.WebSocketManager;
+import com.mattmalec.pterodactyl4j.entities.JsonEntity;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-public class BackupCompletedJsonEvent extends BackupCompletedEvent {
+public class BackupCompletedJsonEvent extends BackupCompletedEvent implements JsonEntity {
 
 	private final JSONObject json;
 
@@ -30,6 +32,20 @@ public class BackupCompletedJsonEvent extends BackupCompletedEvent {
 			PteroClientImpl api, ClientServer server, WebSocketManager manager, String content) {
 		super(api, server, manager, content);
 		this.json = new JSONObject(content);
+	}
+
+	@Override
+	public JSONObject getJson() {
+		return json;
+	}
+
+	@Override
+	public Object getField(String key) {
+		try {
+			return json.get(key);
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 
 	public boolean isSuccessful() {

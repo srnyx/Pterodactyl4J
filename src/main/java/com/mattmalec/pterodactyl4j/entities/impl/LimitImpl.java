@@ -29,6 +29,11 @@ public class LimitImpl implements Limit {
 	}
 
 	@Override
+	public JSONObject getJson() {
+		return json;
+	}
+
+	@Override
 	public Object getField(String key) {
 		try {
 			return json.get(key);

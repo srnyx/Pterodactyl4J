@@ -24,6 +24,13 @@ import org.json.JSONObject;
 public interface JsonEntity {
 
 	/**
+	 * Gets the JSON object backing this entity.
+	 *
+	 * @return	Non-null JSON object backing this entity.
+	 */
+	JSONObject getJson();
+
+	/**
 	 * Gets a field from the entity's JSON object.
 	 *
 	 * @param key The key to get the value of.
