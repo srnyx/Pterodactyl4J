@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -70,6 +70,10 @@ public class Request<T> {
 			onFailure(new RateLimitedException(route, response.getRetryAfter()));
 		} else
 			switch (response.getCode()) {
+				case 401:
+					onFailure(
+							new AuthenticationException(
+									"The request could not be authenticated. The provided token may be invalid, lack access to the requested entity, or the entity may no longer exist."));
 				case 403:
 					onFailure(new LoginException(
 							"The provided token is either incorrect or does not have access to process this request."));
