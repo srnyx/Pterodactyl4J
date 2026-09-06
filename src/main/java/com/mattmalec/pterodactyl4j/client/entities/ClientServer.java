@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2026 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -137,11 +137,8 @@ public interface ClientServer extends Server {
 
 	List<ClientAllocation> getAllocations();
 
-	default ClientAllocation getPrimaryAllocation() {
-		return getAllocations().stream()
-				.filter(ClientAllocation::isDefault)
-				.findFirst()
-				.get();
+	default Optional<ClientAllocation> getPrimaryAllocation() {
+		return getAllocations().stream().filter(ClientAllocation::isDefault).findFirst();
 	}
 
 	default Optional<ClientAllocation> getAllocationByPort(int port) {
